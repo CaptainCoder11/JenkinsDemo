@@ -1,4 +1,10 @@
 node{
+   stage('Initialize')
+    {
+        def dockerHome = tool 'mydocker'
+        def mavenHome  = tool 'mymaven'
+        env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+    }
    stage('SCM Checkout'){
       checkout([$class: 'GitSCM',
         branches: [[name: '*/main']],
