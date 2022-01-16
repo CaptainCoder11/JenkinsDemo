@@ -1,6 +1,11 @@
 node{
    stage('SCM Checkout'){
-       git credentialsId: 'mygithub', url: 'https://github.com/CaptainCoder11/JenkinsDemo.git'
+      checkout([$class: 'GitSCM',
+        branches: [[name: '*/main']],
+        extensions: [[$class: 'CloneOption', timeout: 120]],
+        gitTool: 'Default', 
+        userRemoteConfigs: [[url: 'https://github.com/CaptainCoder11/JenkinsDemo.git']]
+    ])
    }
    stage('Mvn Package'){
      def mvnHome = tool name: 'maven-3', type: 'maven'
